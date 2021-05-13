@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.gson.JsonObject
 import kz.tengrilab.starline.ApiClient
 import kz.tengrilab.starline.ApiInterface
 import kz.tengrilab.starline.Variables
 import kz.tengrilab.starline.databinding.FragmentMainBinding
 import kz.tengrilab.starline.models.*
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,10 +93,9 @@ class MainFragment : Fragment() {
             )
             call.enqueue(object : Callback<AppLogin> {
                 override fun onResponse(call: Call<AppLogin>, response: Response<AppLogin>) {
+                    Log.d("Test", response.body().toString())
                     val answer = response.body()!!.desc.user_token
-
                     Variables.slid_token = answer
-
                     Log.d("Test", Variables.slid_token)
 
                 }
@@ -143,11 +144,37 @@ class MainFragment : Fragment() {
         }
 
         binding.button6.setOnClickListener {
+            val jsonObject = JSONObject()
+            jsonObject.put("type", "arm")
+            jsonObject.put("arm", "0")
+
             val requestBody: HashMap<String, String> = HashMap()
             requestBody["type"] = "arm"
             requestBody["arm"] = "0"
-            val call = developerInterface.unBlockCar(Variables.cookie)
+            val dataArm = DataArm("ign", 1)
+            val kek = "{type: arm, arm: 0}"
+            Log.d("Test", dataArm.toString())
+
+
+            val call = developerInterface.unBlockCar(Variables.cookie, dataArm)
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if (response.isSuccessful) {
+                        val finish = response.body()!!.string()
+                        Log.d("Test", finish)
+                    } else {
+                        val objError = JSONObject(response.errorBody().toString())
+                        Log.d("Test", objError.getString("message"))
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.d("Test", "fail")
+                }
+            })
         }
+
+
     }
 
 

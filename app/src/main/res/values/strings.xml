@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">StarlineKotlin</string>
+    <string name="type">type</string>
+    <string name="value">value</string>
+    <string name="car_info">Car Info</string>
+    <string name="just_do_it">JUST DO IT</string>
 </resources>

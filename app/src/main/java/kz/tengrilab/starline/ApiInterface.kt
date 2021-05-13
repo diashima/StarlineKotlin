@@ -1,8 +1,11 @@
 package kz.tengrilab.starline
 
+import com.google.gson.JsonObject
 import kz.tengrilab.starline.models.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -45,9 +48,14 @@ interface ApiInterface {
     ) : Call<AppInfo>
 
 
+    @Headers("Content-Type: application/json")
     @POST("json/v1/device/41233995/set_param")
     fun unBlockCar(
         @Header("Cookie") cookie: String,
-        @Body setParam: Map<String, String>
-    )
+        @Body body: DataArm
+    ) : Call<ResponseBody>
+
+
+    @GET("json/device/41233995/ctrls_library")
+    fun getLibrary() : Call<JsonObject>
 }

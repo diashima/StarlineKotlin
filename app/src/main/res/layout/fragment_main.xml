@@ -40,12 +40,32 @@
             android:id="@+id/button5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button5" />
+            android:text="@string/car_info" />
 
+        <EditText
+            android:id="@+id/type"
+            android:layout_marginTop="30dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/type" />
+
+        <EditText
+            android:id="@+id/command"
+            android:layout_marginTop="15dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/value" />
         <Button
             android:id="@+id/button6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="OPEN THE DOOOOOOOOOOOOR" />
+            android:text="@string/just_do_it" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
