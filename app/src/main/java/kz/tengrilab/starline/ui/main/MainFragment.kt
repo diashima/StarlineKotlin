@@ -1,12 +1,17 @@
 package kz.tengrilab.starline.ui.main
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
 import kz.tengrilab.starline.ApiClient
 import kz.tengrilab.starline.ApiInterface
@@ -127,23 +132,23 @@ class MainFragment : Fragment() {
 
         binding.button5.setOnClickListener {
             val call = developerInterface.getUserInfo(Variables.cookie, Variables.userId)
-            call.enqueue(object : Callback<AppInfo> {
-                override fun onResponse(
-                    call: Call<AppInfo>,
-                    response: Response<AppInfo>
-                ) {
-                    Log.d("Test", response.body()!!.toString())
+            call.enqueue(object : Callback<AppUserInfo> {
+                override fun onResponse(call: Call<AppUserInfo>, response: Response<AppUserInfo>) {
+                    val lat = response.body()!!.devices[0].position.x
+                    Log.d("Test", lat.toString() )
+                    MainFragmentDirections.startMapFr(response.body()!!.devices[0].position.x.toString(), response.body()!!.devices[0].position.y.toString()).apply {
+                        findNavController().navigate(this)
+                    }
                 }
 
-                override fun onFailure(call: Call<AppInfo>, t: Throwable) {
+                override fun onFailure(call: Call<AppUserInfo>, t: Throwable) {
                     Toast.makeText(requireContext(), "GET_USER_INFO failed", Toast.LENGTH_LONG)
                         .show()
                 }
-
             })
         }
 
-        binding.button6.setOnClickListener {
+        /*binding.button6.setOnClickListener {
             val jsonObject = JSONObject()
             jsonObject.put("type", "arm")
             jsonObject.put("arm", "0")
@@ -172,9 +177,22 @@ class MainFragment : Fragment() {
                     Log.d("Test", "fail")
                 }
             })
-        }
+        }*/
 
-
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                    ),0
+            )}
     }
 
 

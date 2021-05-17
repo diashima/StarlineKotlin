@@ -4,4 +4,12 @@
     <string name="value">value</string>
     <string name="car_info">Car Info</string>
     <string name="just_do_it">JUST DO IT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="option_get_place">Get Place</string>
+    <string name="maps_api_key">AIzaSyCm3znN4PjR0e1r4BMHoAsq6OnbHBz4OIc</string>
+    <string name="pick_place">Pick Place</string>
+    <string name="default_info_title">Default Title</string>
+    <string name="default_info_snippet">Default snippet</string>
+    <string name="further">Далее</string>
 </resources>

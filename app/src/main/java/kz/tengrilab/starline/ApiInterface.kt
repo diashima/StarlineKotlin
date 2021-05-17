@@ -45,7 +45,7 @@ interface ApiInterface {
     fun getUserInfo(
         @Header("Cookie") cookie: String,
         @Path("id") id: String
-    ) : Call<AppInfo>
+    ) : Call<AppUserInfo>
 
 
     @Headers("Content-Type: application/json")
@@ -53,6 +53,14 @@ interface ApiInterface {
     fun unBlockCar(
         @Header("Cookie") cookie: String,
         @Body body: DataArm
+    ) : Call<ResponseBody>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("json/v1/device/41233995/set_param")
+    fun engineCar(
+        @Header("Cookie") cookie: String,
+        @Body body: DataIgn
     ) : Call<ResponseBody>
 
 

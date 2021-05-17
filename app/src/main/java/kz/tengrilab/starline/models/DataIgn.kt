@@ -2,9 +2,9 @@ package kz.tengrilab.starline.models
 
 import com.google.gson.annotations.SerializedName
 
-data class DataArm(
+data class DataIgn(
         @SerializedName("type")
         val type: String,
-        @SerializedName("arm")
-        val arm: Int
+        @SerializedName("ign")
+        val ign: Int
 )

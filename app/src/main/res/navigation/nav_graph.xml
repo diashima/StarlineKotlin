@@ -9,6 +9,23 @@
         android:name="kz.tengrilab.starline.ui.main.MainFragment"
         android:label="fragment_select"
         tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/start_map_fr"
+            app:destination="@id/mapFragment"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="kz.tengrilab.starline.ui.main.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map">
+        <argument
+            android:name="latitude"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument
+            android:name="longitude"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
 </navigation>
