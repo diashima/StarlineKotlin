@@ -11,6 +11,15 @@ import retrofit2.http.*
 
 interface ApiInterface {
 
+    @Multipart
+    //@Headers("Accept: application/json; version=1.0")
+    @POST("mobile/mobile_identification/")
+    fun uploadImage(
+        @Part file: MultipartBody.Part,
+        @Part personId: MultipartBody.Part,
+        @Part threshold: MultipartBody.Part
+    ): Call<ResponseBody>
+
     @GET("apiV3/application/getCode")
     fun getAppCode(
         @Query("appId") appId: String,

@@ -42,4 +42,19 @@ object ApiClient {
 
         return retrofit
     }
+
+    fun getTengrilabClient() : Retrofit {
+        val okHttpClient = OkHttpClient.Builder()
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .build()
+
+        retrofit = Retrofit.Builder()
+            .baseUrl(Variables.urlTengrilab)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return retrofit
+    }
 }

@@ -49,7 +49,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private var personLat = 0.0
     private var personLong = 0.0
 
-    private val args: MapFragmentArgs by navArgs()
+    //private val args: MapFragmentArgs by navArgs()
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
@@ -104,8 +104,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         this.map = map
-        val carLat = args.latitude.toDouble()
-        val carLong = args.longitude.toDouble()
+        val carLat = 0.0 //args.latitude.toDouble()
+        val carLong = 0.0 //args.longitude.toDouble()
         Log.d("Test", "lat: $carLat, long: $carLong")
         val car = LatLng(carLat, carLong)
         val markerOptions = MarkerOptions()
@@ -164,7 +164,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                                     lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
                             personLat = lastKnownLocation!!.latitude
                             personLong = lastKnownLocation!!.longitude
-                            val distance = distanceInKm(personLat, personLong, args.latitude.toDouble(), args.longitude.toDouble()) * 1000
+
+                            val distance = distanceInKm(personLat, personLong, 0.0, 0.0)//args.latitude.toDouble(), args.longitude.toDouble()) * 1000
                             if (distance < 2000){
                                 Toast.makeText(requireContext(), "Вы в зоне контроля автомобиля", Toast.LENGTH_LONG).show()
                                 binding.buttonFurther.isEnabled = true
@@ -172,6 +173,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                                 Toast.makeText(requireContext(), "Вы находитесь на расстоянии более 2км от автомобиля", Toast.LENGTH_LONG).show()
                             }
                             Log.d("Test", "Дистанция до автомобиля: $distance")
+
                         }
                     } else {
                         Log.d("Test", "Current location is null. Using defaults.")
@@ -394,7 +396,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         })
     }
-
 
 
     companion object {

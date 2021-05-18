@@ -136,7 +136,7 @@ class MainFragment : Fragment() {
                 override fun onResponse(call: Call<AppUserInfo>, response: Response<AppUserInfo>) {
                     val lat = response.body()!!.devices[0].position.x
                     Log.d("Test", lat.toString() )
-                    MainFragmentDirections.startMapFr(response.body()!!.devices[0].position.x.toString(), response.body()!!.devices[0].position.y.toString()).apply {
+                    MainFragmentDirections.startDetectionFr().apply {
                         findNavController().navigate(this)
                     }
                 }
@@ -146,6 +146,12 @@ class MainFragment : Fragment() {
                         .show()
                 }
             })
+        }
+
+        binding.button6.setOnClickListener {
+            MainFragmentDirections.startDetectionFr().apply {
+                findNavController().navigate(this)
+            }
         }
 
         /*binding.button6.setOnClickListener {
